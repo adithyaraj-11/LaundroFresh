@@ -148,8 +148,12 @@ app.post("/login", async (req, res) => {
 
 app.post("/dashboard", function (req, res) {
   const user = db.collection("login").findOne({ regno: regno });
-
-  res.render("payment");
+  const pending = user.paymentpending;
+  if (pending == 0) {
+    alert("No payments pending!");
+  } else {
+    res.render("payment");
+  }
 });
 
 app.post("/payment", async (req, res) => {
