@@ -27,10 +27,10 @@ app.post("/login", async (req, res) => {
       if (req.body.password == user.password) {
         res.render("dashboard", { use: user });
       } else {
-        document.alert("Password doesn't match");
+        window.alert("Password doesn't match");
       }
     } else {
-      document.alert("User doesn't exist");
+      window.alert("User doesn't exist");
     }
     app.get("/dashboard", async (req, res) => {
       const user = await db.collection("login").findOne({ regno: regno });
@@ -133,9 +133,9 @@ app.post("/login", async (req, res) => {
                   },
                 }
               );
-              document.alert("Changed Successfully");
+              window.alert("Changed Successfully");
             } else {
-              document.alert("Password is not same");
+              window.alert("Password is not same");
             }
           }
         } catch (error) {
@@ -150,7 +150,7 @@ app.post("/dashboard", function (req, res) {
   const user = db.collection("login").findOne({ regno: regno });
   const pending = user.paymentpending;
   if (pending == 0) {
-    document.alert("No payments pending!");
+    window.alert("No payments pending!");
   } else {
     res.render("payment");
   }
@@ -201,10 +201,10 @@ app.post("/signup", async (req, res) => {
     console.log(`A document was inserted with the _id: ${result.insertedId}`);
     if (user) {
       if (req.body.password == req.body.cpassword) {
-        document.alert("Registered Successfully");
+        window.alert("Registered Successfully");
         res.redirect("login.html");
       } else {
-        document.alert("Password is not same");
+        window.alert("Password is not same");
       }
     }
   } catch (error) {
