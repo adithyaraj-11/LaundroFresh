@@ -197,18 +197,25 @@ app.post("/signup", async (req, res) => {
       orders: "0",
       paymentpending: "0",
     };
+    // Insert the user document into the "login" collection
     const result = await db.collection("login").insertOne(user);
     console.log(`A document was inserted with the _id: ${result.insertedId}`);
+
     if (user) {
-      if (req.body.password == req.body.cpassword) {
-        window.alert("Registered Successfully");
+      if (req.body.password === req.body.cpassword) {
+        // Send a success response to the client
         res.redirect("login.html");
       } else {
-        window.alert("Password is not same");
+        // Send an error response to the client
+        window.alert("Password doesn't match");
+        res.redirect("signup.html");
       }
     }
   } catch (error) {
     console.log(error.message);
+    // Send an error response to the client
+    res.status(500).json({ message: "An error occurred during registration" });
+    
   }
 });
 app.listen(3000, () => {
